@@ -10,7 +10,7 @@ const TaskCard = () => {
         <Ellipsis />
       </div>
 
-      <p className="font-semibold text-lg">Brainstorming</p>
+      <p className="font-semibold text-lg ">Brainstorming</p>
 
       <p className="text-gray-600 -mt-1.5">
         Brainstorming brings team members' diverse experience into play.
