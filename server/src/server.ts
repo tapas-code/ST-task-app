@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import taskRoutes from "./routes/task.routes"
+import { globalErrorHandler } from "./middlewares/errorHandler";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Task Management API is running");
 });
 app.use("/api/tasks", taskRoutes);
+app.use(globalErrorHandler);
 
 // Connect to MongoDB
 mongoose
