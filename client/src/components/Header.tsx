@@ -1,5 +1,4 @@
-import { Filter, Search } from "lucide-react";
-import React from "react";
+import { Search } from "lucide-react";
 
 const Header = () => {
   return (

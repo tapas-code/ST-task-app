@@ -1,5 +1,4 @@
 import { ActivitySquare, Clock, TriangleAlert } from "lucide-react";
-import React from "react";
 
 const Sidebar = () => {
   return (

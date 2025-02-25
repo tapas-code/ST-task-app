@@ -1,4 +1,3 @@
-import React from 'react'
 import TaskBox from './TaskBox'
 
 const Dashboard = () => {
