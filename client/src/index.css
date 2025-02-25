@@ -1,1 +1,27 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+.shadow-4 {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.shadow-5 {
+  box-shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
+}
+
+.taskBox {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(186, 186, 186) transparent;
+}
+
+.taskBox::-webkit-scrollbar {
+  width: 4px !important; 
+}
+
+.taskBox::-webkit-scrollbar-thumb {
+  background-color: red; 
+  border-radius: 10px;
+}
+
+.taskBox::-webkit-scrollbar-track {
+  background-color: orange; 
+}
