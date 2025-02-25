@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import taskRoutes from "./routes/task.routes"
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.get("/", (req: Request, res: Response) => {
   res.send("Task Management API is running");
 });
+app.use("/api/tasks", taskRoutes);
 
 // Connect to MongoDB
 mongoose
