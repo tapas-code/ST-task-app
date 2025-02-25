@@ -6,6 +6,7 @@ export interface ITask extends Document {
   deadline: Date;
   status: "todo" | "onProgress" | "completed" | "expired";
   priority: "high" | "low";
+  checkTimeout(): Promise<void>;
 }
 
 const TaskSchema = new Schema<ITask>(
@@ -25,7 +26,7 @@ const TaskSchema = new Schema<ITask>(
     },
     status: {
       type: String,
-      enum: ["todo", "onProgress", "completed", "expired"],
+      enum: ["todo", "onProgress", "completed", "timeout"],
       default: "todo",
     },
     priority: {
@@ -38,6 +39,14 @@ const TaskSchema = new Schema<ITask>(
     timestamps: true,
   }
 );
+
+TaskSchema.methods.checkTimeout = async function (): Promise<void> {
+    const now = new Date();
+    if(now>this.deadline && this.status !== "completed" && this.status !== "timeout"){
+        this.status = "timeout";
+        await this.save();
+    }
+}
 
 const Task = model<ITask>("Task", TaskSchema);
 

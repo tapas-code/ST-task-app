@@ -5,6 +5,9 @@ import Task from "../models/task.model";
 export const getAllTasks = async (req: Request, res: Response) => {
   try {
     const tasks = await Task.find();
+    tasks.forEach(async (task) => {
+      await task.checkTimeout();
+    });
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch tasks" });
@@ -12,7 +15,10 @@ export const getAllTasks = async (req: Request, res: Response) => {
 };
 
 // Get a task by ID
-export const getTaskById = async (req: Request, res: Response): Promise<any> => {
+export const getTaskById = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) {
@@ -28,7 +34,13 @@ export const getTaskById = async (req: Request, res: Response): Promise<any> => 
 export const createTask = async (req: Request, res: Response) => {
   try {
     const { title, description, deadline, status, priority } = req.body;
-    const newTask = new Task({ title, description, deadline, status, priority });
+    const newTask = new Task({
+      title,
+      description,
+      deadline,
+      status,
+      priority,
+    });
     await newTask.save();
     res.status(201).json(newTask);
   } catch (error) {

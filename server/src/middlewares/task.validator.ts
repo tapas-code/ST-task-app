@@ -21,7 +21,7 @@ export const validateTask = (): ValidationChain[] => [
 
   body("status")
     .optional()
-    .isIn(["todo", "onProgress", "completed", "expired"])
+    .isIn(["todo", "onProgress", "completed", "timeout"])
     .withMessage("Invalid status value"),
 
   body("priority")
