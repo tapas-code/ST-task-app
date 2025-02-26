@@ -3,7 +3,8 @@ import TaskBox from "./TaskBox";
 import { getTasks } from "../services/api";
 
 interface DashboardProps {
-  category: String;
+  category: string;
+  tasks: Task[];
 }
 
 interface Task {
@@ -15,21 +16,12 @@ interface Task {
   deadline: string;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ category }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const allTasks = await getTasks();
-      setTasks(allTasks);
-    };
-    fetchTasks();
-  }, []);
+const Dashboard: React.FC<DashboardProps> = ({ category, tasks }) => {
 
   const todoTasks = tasks.filter(task => task.status === "todo");
   const onProgressTasks = tasks.filter(task => task.status === "onProgress");
-  const doneTasks = tasks.filter(task => task.status === "done");
-  const expiredTasks = tasks.filter(task => task.status === "expired");
+  const doneTasks = tasks.filter(task => task.status === "completed");
+  const expiredTasks = tasks.filter(task => task.status === "timeout");
 
   return (
     <div className="flex-1 flex justify-start max-md:my-6 md:ms-6 gap-12 max-md:flex-col">

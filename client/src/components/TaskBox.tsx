@@ -15,7 +15,7 @@ interface TaskBoxProps {
   tasks: Task[];
 }
 
-const TaskBox: React.FC<TaskBoxProps> = ({ category, count }) => {
+const TaskBox: React.FC<TaskBoxProps> = ({ category, count, tasks }) => {
   return (
     <div className="h-[99.5%] bg-gray-200 w-[300px] max-lg:w-1/2 max-md:w-full shadow-5 rounded-xl py-4 px-4">
       <div className="flex items-center justify-center gap-2">
@@ -50,7 +50,9 @@ const TaskBox: React.FC<TaskBoxProps> = ({ category, count }) => {
       ></div>
 
       <div className="taskBox max-h-[500px] mt-4 pb-3 flex flex-col gap-4 overflow-auto ">
-        <TaskCard />
+        {tasks.length > 0 ? tasks.map(task => (
+            <TaskCard key={task.id} task={task} />
+        )): <p>No tasks available.</p>}
       </div>
     </div>
   );
