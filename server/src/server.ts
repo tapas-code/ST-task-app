@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import taskRoutes from "./routes/task.routes"
 import { globalErrorHandler } from "./middlewares/errorHandler";
 
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(cors());
 
 // Basic route
 app.get("/", (req: Request, res: Response) => {

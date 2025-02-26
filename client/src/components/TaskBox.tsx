@@ -1,8 +1,18 @@
 import TaskCard from "./TaskCard";
 
+interface Task {
+    id: string;
+    title: string;
+    description: string;
+    status: string;
+    priority: string;
+    deadline: string;
+}
+
 interface TaskBoxProps {
-  category: String;
-  count: String;
+  category: string;
+  count: number;
+  tasks: Task[];
 }
 
 const TaskBox: React.FC<TaskBoxProps> = ({ category, count }) => {
