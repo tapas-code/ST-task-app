@@ -93,6 +93,9 @@ Navigate to `http://localhost:5173` in your browser.
 The app is deployed on **Netlify** for the frontend and **Render** for the backend.
 👉 **[Live Demo](https://st-task-app.netlify.app/)** 🌍
 
+## 📹 Demo Video
+🎥 **Watch the demo here:** 👉 **[Video Link](https://youtu.be/YCImJdY4plo)**
+
 ## 📄 **API Endpoints**
 
 ### Tasks
@@ -117,8 +120,13 @@ The app is deployed on **Netlify** for the frontend and **Render** for the backe
 
 ---
 
-### 🎯 Author
-- **Tapas Tanty**
+## 👨‍💻 Author
+Developed by **Tapas Tanty** 🚀
 
-Made with ❤️ by Tapas Tanty
+🔗 **GitHub:** [tapas-code](https://github.com/tapas-code)  
+📧 **Email:** tapas.code247@gmail.com 
+
+---
+
+### ⭐ Don't forget to star the repo if you found it useful!
 
