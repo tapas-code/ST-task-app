@@ -51,7 +51,7 @@ A **Task Management App** built with **MERN Stack** (MongoDB, Express, React, No
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/username/task-management-app.git
+git https://github.com/tapas-code/ST-task-app.git
 cd backend
 ```
 
@@ -91,7 +91,7 @@ Navigate to `http://localhost:5173` in your browser.
 
 ## 🌐 Deployment
 The app is deployed on **Netlify** for the frontend and **Render** for the backend.
-👉 **[Live Demo](https://task-app.netlify.app/)** 🌍
+👉 **[Live Demo](https://st-task-app.netlify.app/)** 🌍
 
 ## 📄 **API Endpoints**
 
