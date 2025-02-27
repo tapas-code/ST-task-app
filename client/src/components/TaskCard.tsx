@@ -1,10 +1,9 @@
 import { Ellipsis, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { deleteTask } from "../services/api";
-
 interface TaskCardProps {
   task: Task;
   handleDelete: (taskId: string) => void;
+  handleUpdate: (taskId: string, updatedTask: { title: string; description: string; deadline: string; priority: string; status: string }) => void;
 }
 
 interface Task {
@@ -16,8 +15,8 @@ interface Task {
   deadline: string;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, handleDelete }) => {
-    const [showMenu, setShowMenu] = useState(false);
+const TaskCard: React.FC<TaskCardProps> = ({ task, handleDelete, handleUpdate }) => {
+  const [showMenu, setShowMenu] = useState(false);
   const formattedDate = new Date(task.deadline).toLocaleDateString("en-GB");
 
   return (
@@ -45,20 +44,31 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, handleDelete }) => {
           </div>
         )}
         <div className="relative">
-            <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-gray-100 rounded cursor-pointer">
-                <Ellipsis className="w-4 h-4 text-gray-500"/>
-            </button>
+          <button
+            onClick={() => setShowMenu(!showMenu)}
+            className="p-1 hover:bg-gray-100 rounded cursor-pointer"
+          >
+            <Ellipsis className="w-4 h-4 text-gray-500" />
+          </button>
 
-            {showMenu && (
-                <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-5 z-10">
-                    <div className="py-1">
-                        <button  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            Move to Progress
-                        </button>
-                        <button  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            Mark as Done
-                        </button>
-                        <button
+          {showMenu && (
+            <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-5 z-10">
+              <div className="py-1">
+                {task.status === "todo" && (
+                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleUpdate(task._id, {...task, status: "onProgress"})}
+                  >
+                    Move to Progress
+                  </button>
+                )}
+                {(task.status === "onProgress" || task.status === "todo") && (
+                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => handleUpdate(task._id, {...task, status: "completed"})}
+                  >
+                    Mark as Done
+                  </button>
+                )}
+                <button
                   onClick={() => {
                     handleDelete(task._id);
                     setShowMenu(false);
@@ -70,11 +80,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, handleDelete }) => {
                     Delete
                   </div>
                 </button>
-                    </div>
-                </div>
-            )}
+              </div>
+            </div>
+          )}
         </div>
-        
       </div>
 
       <p className="font-semibold text-lg ">{task.title}</p>

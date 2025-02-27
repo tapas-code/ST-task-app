@@ -1,12 +1,12 @@
 import React from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CalendarProps {
   onSelect: (date: string) => void;
   onClose: () => void;
 }
 
-export default function Calendar({ onSelect, onClose }: CalendarProps) {
+export default function Calendar({ onSelect }: CalendarProps) {
   const [currentDate, setCurrentDate] = React.useState(new Date());
 
   const months = [

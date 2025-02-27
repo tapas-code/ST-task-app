@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import { createTask, deleteTask, getTasks } from "./services/api";
+import { createTask, deleteTask, getTasks, updateTask } from "./services/api";
 
 interface Task {
   _id: string;
@@ -43,12 +43,26 @@ const App = () => {
     }
   }
 
+  const handleUpdateTask = async (
+    taskId: string,
+    updatedTask: { title: string; description: string; deadline: string; priority: string; status: string }
+  ) => {
+    try {
+      const updated = await updateTask(taskId, updatedTask); // API Call
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === taskId ? { ...task, ...updated } : task))
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header setCategory={setCategory} />
       <div className="mx-6 flex gap-6 max-md:flex-col">
         <Sidebar setCategory={setCategory} tasks={tasks} addTask={handleAddTask}/>
-        <Dashboard category={category} tasks={tasks} handleDelete={handleDeleteTask}/>
+        <Dashboard category={category} tasks={tasks} handleDelete={handleDeleteTask} handleUpdate={handleUpdateTask}/>
       </div>
     </div>
   );

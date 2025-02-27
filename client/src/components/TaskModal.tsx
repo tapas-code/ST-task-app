@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Calendar as CalendarIcon, Check, X } from "lucide-react";
+import { Calendar as CalendarIcon, X } from "lucide-react";
 import Calendar from "./Calendar";
 import convertToISO8601 from "../utils/timeConvert";
 
