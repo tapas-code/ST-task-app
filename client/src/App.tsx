@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import { createTask, getTasks } from "./services/api";
+import { createTask, deleteTask, getTasks } from "./services/api";
 
 interface Task {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   status: string;
@@ -34,12 +34,21 @@ const App = () => {
     }
   }
 
+  const handleDeleteTask = async (taskId: string) => {
+    try {
+      await deleteTask(taskId);
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId))
+    } catch (error) {
+      console.error("Error deleting task: ", error);
+    }
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header setCategory={setCategory} />
       <div className="mx-6 flex gap-6 max-md:flex-col">
         <Sidebar setCategory={setCategory} tasks={tasks} addTask={handleAddTask}/>
-        <Dashboard category={category} tasks={tasks}/>
+        <Dashboard category={category} tasks={tasks} handleDelete={handleDeleteTask}/>
       </div>
     </div>
   );

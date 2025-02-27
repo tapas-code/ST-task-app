@@ -1,7 +1,7 @@
 import TaskCard from "./TaskCard";
 
 interface Task {
-    id: string;
+    _id: string;
     title: string;
     description: string;
     status: string;
@@ -13,9 +13,10 @@ interface TaskBoxProps {
   category: string;
   count: number;
   tasks: Task[];
+  handleDelete: (taskId: string) => void;
 }
 
-const TaskBox: React.FC<TaskBoxProps> = ({ category, count, tasks }) => {
+const TaskBox: React.FC<TaskBoxProps> = ({ category, count, tasks, handleDelete }) => {
   return (
     <div className="h-[99.5%] bg-gray-200 w-[300px] max-lg:w-1/2 max-md:w-full shadow-5 rounded-xl py-4 px-4">
       <div className="flex items-center justify-center gap-2">
@@ -51,7 +52,7 @@ const TaskBox: React.FC<TaskBoxProps> = ({ category, count, tasks }) => {
 
       <div className="taskBox max-h-[500px] mt-4 pb-3 flex flex-col gap-4 overflow-auto ">
         {tasks.length > 0 ? tasks.map(task => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task._id} task={task} handleDelete={handleDelete}/>
         )): <p>No tasks available.</p>}
       </div>
     </div>

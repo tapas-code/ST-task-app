@@ -5,10 +5,11 @@ import { getTasks } from "../services/api";
 interface DashboardProps {
   category: string;
   tasks: Task[];
+  handleDelete: (taskId: string) => void;
 }
 
 interface Task {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   status: string;
@@ -16,7 +17,7 @@ interface Task {
   deadline: string;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ category, tasks }) => {
+const Dashboard: React.FC<DashboardProps> = ({ category, tasks, handleDelete }) => {
 
   const todoTasks = tasks.filter(task => task.status === "todo");
   const onProgressTasks = tasks.filter(task => task.status === "onProgress");
@@ -27,16 +28,16 @@ const Dashboard: React.FC<DashboardProps> = ({ category, tasks }) => {
     <div className="flex-1 flex justify-start max-md:my-6 md:ms-6 gap-12 max-md:flex-col">
       {category == "Active" && (
         <>
-          <TaskBox category="To Do" count={todoTasks.length} tasks={todoTasks} />
-          <TaskBox category="On Progress" count={onProgressTasks.length} tasks={onProgressTasks} />
+          <TaskBox category="To Do" count={todoTasks.length} tasks={todoTasks}  handleDelete={handleDelete}/>
+          <TaskBox category="On Progress" count={onProgressTasks.length} tasks={onProgressTasks}  handleDelete={handleDelete}/>
         </>
       )}
-      {category == "Done" && <TaskBox category="Done" count={doneTasks.length} tasks={doneTasks} />}
-      {category == "To Do" && <TaskBox category="To Do" count={todoTasks.length} tasks={todoTasks} />}
+      {category == "Done" && <TaskBox category="Done" count={doneTasks.length} tasks={doneTasks}  handleDelete={handleDelete}/>}
+      {category == "To Do" && <TaskBox category="To Do" count={todoTasks.length} tasks={todoTasks}  handleDelete={handleDelete}/>}
       {category == "On Progress" && (
-        <TaskBox category="On Progress" count={onProgressTasks.length} tasks={onProgressTasks} />
+        <TaskBox category="On Progress" count={onProgressTasks.length} tasks={onProgressTasks} handleDelete={handleDelete}/>
       )}
-      {category == "Timeout" && <TaskBox category="Expired" count={expiredTasks.length} tasks={expiredTasks} />}
+      {category == "Timeout" && <TaskBox category="Expired" count={expiredTasks.length} tasks={expiredTasks}  handleDelete={handleDelete}/>}
     </div>
   );
 };
