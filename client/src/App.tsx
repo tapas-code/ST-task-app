@@ -16,6 +16,7 @@ interface Task {
 const App = () => {
   const [category, setCategory] = useState("Active");
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -24,6 +25,10 @@ const App = () => {
     };
     fetchTasks();
   }, []);
+
+  const filteredTasks = tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleAddTask = async (newTask: { title: string; description: string; deadline: string; priority: string; }) => {
     try {
@@ -59,10 +64,10 @@ const App = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header setCategory={setCategory} />
+      <Header setCategory={setCategory} setSearchQuery={setSearchQuery} />
       <div className="mx-6 flex gap-6 max-md:flex-col">
         <Sidebar setCategory={setCategory} tasks={tasks} addTask={handleAddTask}/>
-        <Dashboard category={category} tasks={tasks} handleDelete={handleDeleteTask} handleUpdate={handleUpdateTask}/>
+        <Dashboard category={category} tasks={filteredTasks} handleDelete={handleDeleteTask} handleUpdate={handleUpdateTask}/>
       </div>
     </div>
   );

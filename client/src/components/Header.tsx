@@ -2,15 +2,21 @@ import { Search } from "lucide-react";
 
 interface HeaderProps {
   setCategory: (category: string) => void;
+  setSearchQuery: (query: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ setCategory }) => {
+const Header: React.FC<HeaderProps> = ({ setCategory, setSearchQuery }) => {
   return (
     <div className="bg-gray-200 shadow-5 m-6 p-4 rounded-xl">
       <div className="flex items-center justify-between">
         <label className="input rounded-full w-1/5 max-md:w-2/4 shadow-md">
           <Search className="text-gray-800 w-5" />
-          <input type="search" required placeholder="Search Tasks" />
+          <input
+            type="search"
+            required
+            placeholder="Search Tasks"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </label>
 
         <select
